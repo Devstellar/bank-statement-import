@@ -98,6 +98,12 @@ class TestParser(TestParserCommon):
     def test_parse_no_txdtls(self):
         self._do_parse_test("test-camt053-no-txdtls", "golden-camt053-no-txdtls.pydata")
 
+    def test_parse_addtlntryinf_with_txdtls(self):
+        self._do_parse_test(
+            "test-camt053-addtlntryinf-with-txdtls",
+            "golden-camt053-addtlntryinf-with-txdtls.pydata",
+        )
+
 
 class TestImport(TransactionCase):
     """Run test to import camt import."""

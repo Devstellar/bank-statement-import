@@ -336,7 +336,8 @@ class AccountStatementImportCamtParser(models.AbstractModel):
         )
 
         details_nodes = node.xpath("./ns:NtryDtls/ns:TxDtls", namespaces={"ns": ns})
-        if len(details_nodes) == 0:
+
+        if len(details_nodes) <= 1:
             addtl_info = node.xpath("./ns:AddtlNtryInf", namespaces={"ns": ns})
             if (
                 addtl_info
@@ -344,6 +345,8 @@ class AccountStatementImportCamtParser(models.AbstractModel):
                 and transaction.get("payment_ref") == "/"
             ):
                 transaction["payment_ref"] = addtl_info[0].text.strip()
+
+        if len(details_nodes) == 0:
             self.generate_narration(transaction)
             yield transaction
             return
